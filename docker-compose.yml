@@ -23,7 +23,7 @@ services:
     expose:
       - "3306"
     volumes:
-      - tumercappstore_mysql_data:/var/lib/mysql
+      - mysql:/var/lib/mysql
 
 volumes:
-  mysql_data:
+  mysql:
