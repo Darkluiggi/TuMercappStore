@@ -4,20 +4,20 @@ services:
     image: ghcr.io/smartstore/smartstore-linux
     container_name: web
     ports:
-      - "80:80"
+      - "3000:80"
     restart: unless-stopped
     depends_on:
       - db
     volumes:
-      - "D:/mount/smtenants/mysql:/app/App_Data/Tenants"
+      - ./appdata:/app/App_Data
   db:
     image: mysql
     container_name: mysql
     environment:
       #MYSQL_DATABASE: smartstore
       #MYSQL_USER: "root"
-      MYSQL_PASSWORD: "Smartstore2022!"
-      MYSQL_ROOT_PASSWORD: "Smartstore2022!"
+      MYSQL_PASSWORD: "TuMercappStore!"
+      MYSQL_ROOT_PASSWORD: "TuMercappStore!"
     ports:
       - '3307:3306'
     expose:
