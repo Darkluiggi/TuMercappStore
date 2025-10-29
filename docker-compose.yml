@@ -2,14 +2,14 @@ version: "3.4"
 services:
   web:
     image: ghcr.io/smartstore/smartstore-linux
-    container_name: smartstore
+    container_name: web
     ports:
       - "3000:80"
     restart: unless-stopped
     depends_on:
       - db
     volumes:
-      - ./appdata:/app/App_Data
+      - ./appdata:/app/App_Data/Tenants
   db:
     image: mysql:8
     container_name: mysql
