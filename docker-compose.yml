@@ -9,13 +9,13 @@ services:
     depends_on:
       - db
     volumes:
-      # Carpeta local en Linux donde Smartstore guarda datos persistentes
-      - ./appdata:/app/App_Data/Tenants
-
+      - ./appdata:/app/App_Data
   db:
     image: mysql:8
     container_name: mysql
     environment:
+      #MYSQL_DATABASE: smartstore
+      #MYSQL_USER: "root"
       MYSQL_PASSWORD: "TuMercappDb!"
       MYSQL_ROOT_PASSWORD: "TuMercappDb!"
     ports:
