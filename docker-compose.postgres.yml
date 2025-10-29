@@ -1,27 +1,35 @@
-version: "3.4"
+version: "3.8"
+
 services:
   web:
-    image: ghcr.io/smartstore/smartstore-linux
-    container_name: web
+    image: ghcr.io/smartstore/smartstore-linux:latest
+    container_name: smartstore
     ports:
       - "80:80"
-    restart: unless-stopped
+    restart: always
     depends_on:
       - db
-    volumes:
-      - "D:/mount/smtenants/postgres-db:/app/App_Data/Tenants"
-  db:
-    image: postgres:latest
     environment:
-      POSTGRES_USER: super_admin
-      POSTGRES_PASSWORD: Smartstore2022!
-      PGDATA: /data/postgres
+      - ConnectionStrings__DefaultConnection=Host=db;Port=5432;Database=smartstore;Username=${POSTGRES_USER};Password=${POSTGRES_PASSWORD}
+      - ASPNETCORE_ENVIRONMENT=Production
     volumes:
-       - postgres-db:/data/postgres
+      # Donde Smartstore guarda archivos, logs, etc.
+      - ./appdata:/app/App_Data
+
+  db:
+    image: postgres:16-alpine
+    container_name: postgres
+    restart: always
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=smartstore
+      - PGDATA=/var/lib/postgresql/data
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
     ports:
       - "5432:5432"
 
-
 volumes:
-  postgres-db:
-    driver: local
+  pgdata:
+  appdata:

@@ -2,28 +2,28 @@ version: "3.4"
 services:
   web:
     image: ghcr.io/smartstore/smartstore-linux
-    container_name: web
+    container_name: smartstore
     ports:
       - "80:80"
     restart: unless-stopped
     depends_on:
       - db
     volumes:
-      - "D:/mount/smtenants/mysql:/app/App_Data/Tenants"
+      # Carpeta local en Linux donde Smartstore guarda datos persistentes
+      - ./appdata:/app/App_Data/Tenants
+
   db:
-    image: mysql
+    image: mysql:8
     container_name: mysql
     environment:
-      #MYSQL_DATABASE: smartstore
-      #MYSQL_USER: "root"
-      MYSQL_PASSWORD: "Smartstore2022!"
-      MYSQL_ROOT_PASSWORD: "Smartstore2022!"
+      MYSQL_PASSWORD: "TuMercappDb!"
+      MYSQL_ROOT_PASSWORD: "TuMercappDb!"
     ports:
-      - '3307:3306'
+      - "3307:3306"
     expose:
-      - '3306'
+      - "3306"
     volumes:
-      - mysql:/var/lib/mysql
+      - mysql_data:/var/lib/mysql
 
 volumes:
-  mysql:
+  mysql_data:
