@@ -10,6 +10,7 @@ services:
       - db
     volumes:
       - ./appdata:/app/App_Data/Tenants
+      - /var/www/smartstore/media:/app/wwwroot/media
   db:
     image: mysql:8
     container_name: mysql
